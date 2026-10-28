@@ -4,16 +4,26 @@
 
 using namespace std;
 
-void NumberArray::print() const {
-    cout << "[ ";
-    for (int i = 0; i < size; ++i) {
-        cout << fixed << setprecision(2) << data[i] << (i < size - 1 ? ", " : "");
+const double NumberArray::SAFE_DEFAULT = 0.0;
+
+NumberArray::NumberArray(int s) {
+    if (s <= 0) {
+        size = MAX_SIZE;
     }
-    cout << " ]" << endl;
+    else {
+        size = s;
+    }
+    data = new double[size];
+    for (int i = 0; i < size; ++i) {
+        data[i] = 0.0;
+    }
 }
 
-
-const double NumberArray::SAFE_DEFAULT = 0.0;
+NumberArray::~NumberArray() {
+    delete[] data;
+    data = nullptr;
+    cout << "[Destructor] Dynamic memory freed for NumberArray." << endl;
+}
 
 void NumberArray::setNumber(int index, double value) {
     if (index >= 0 && index < size) {
@@ -32,30 +42,6 @@ double NumberArray::getNumber(int index) const {
     return SAFE_DEFAULT;
 }
 
-int NumberArray::getSize() const {
-    return size;
-}
-
-NumberArray::NumberArray(int s) {
-    if (s <= 0) {
-        size = MAX_SIZE;
-    }
-    else {
-        size = s;
-    }
-    data = new double[size];
-    for (int i = 0; i < size; ++i) {
-        data[i] = 0.0;
-    }
-
-}
-
-NumberArray::~NumberArray() {
-    delete[] data;
-    data = nullptr;
-    cout << "[Destructor] Dynamic memory freed for NumberArray." << endl;
-
-}
 double NumberArray::getMin() const {
     if (size == 0) return SAFE_DEFAULT;
     double minVal = data[0];
@@ -85,4 +71,16 @@ double NumberArray::getAverage() const {
         sum += data[i];
     }
     return sum / size;
+}
+
+void NumberArray::print() const {
+    cout << "[ ";
+    for (int i = 0; i < size; ++i) {
+        cout << fixed << setprecision(2) << data[i] << (i < size - 1 ? ", " : "");
+    }
+    cout << " ]" << endl;
+}
+
+int NumberArray::getSize() const {
+    return size;
 }
