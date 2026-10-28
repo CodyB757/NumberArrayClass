@@ -46,4 +46,33 @@ NumberArray::~NumberArray() {
     cout << "[Destructor] Dynamic memory freed for NumberArray." << endl;
 
 }
+double NumberArray::getMin() const {
+    if (size == 0) return SAFE_DEFAULT;
+    double minVal = data[0];
+    for (int i = 1; i < size; ++i) {
+        if (data[i] < minVal) {
+            minVal = data[i];
+        }
+    }
+    return minVal;
+}
 
+double NumberArray::getMax() const {
+    if (size == 0) return SAFE_DEFAULT;
+    double maxVal = data[0];
+    for (int i = 1; i < size; ++i) {
+        if (data[i] > maxVal) {
+            maxVal = data[i];
+        }
+    }
+    return maxVal;
+}
+
+double NumberArray::getAverage() const {
+    if (size == 0) return SAFE_DEFAULT;
+    double sum = 0.0;
+    for (int i = 0; i < size; ++i) {
+        sum += data[i];
+    }
+    return sum / size;
+}
