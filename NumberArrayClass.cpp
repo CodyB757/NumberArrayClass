@@ -1,7 +1,17 @@
 #include "NumberArray.h"
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
+
+void NumberArray::print() const {
+    cout << "[ ";
+    for (int i = 0; i < size; ++i) {
+        cout << fixed << setprecision(2) << data[i] << (i < size - 1 ? ", " : "");
+    }
+    cout << " ]" << endl;
+}
+
 
 const double NumberArray::SAFE_DEFAULT = 0.0;
 
